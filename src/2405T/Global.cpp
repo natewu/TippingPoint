@@ -1,6 +1,7 @@
 #include "main.h"
 #include "pros/misc.h"
 #include "pros/misc.hpp"
+#include "pros/motors.h"
 #include "pros/rtos.hpp"
 #include "okapi/api.hpp"
 #include <cstdint>
@@ -14,8 +15,8 @@ pros::Motor Lf(1, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS)
     Rf(2, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS),
     Lr(3, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS),
     Rr(4, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS),
-    liftL(7, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS),
-    liftR(8, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS),
+    liftL(7, pros::E_MOTOR_GEARSET_36, false, pros::E_MOTOR_ENCODER_COUNTS),
+    liftR(8, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS),
     intakeL(9, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS),
     intakeR(10, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS);
 
@@ -24,7 +25,7 @@ float pi = M_PI;
 float tics = Lf.get_position(); 
 float ticksPerInch = 900/(4*pi);
 float inch = tics/ticksPerInch;
-bool toggle = false, latch = false, Rlatch = true;
+// bool toggle = false, latch = false, Rlatch = true;
 
 std::shared_ptr<okapi::OdomChassisController> drive = 
     okapi::ChassisControllerBuilder()

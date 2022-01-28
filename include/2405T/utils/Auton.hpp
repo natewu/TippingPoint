@@ -1,16 +1,9 @@
 #pragma once
 #include "main.h"
+#include "2405T/utils/Misc.hpp"
 
 class Slew {
     public:
-        /* 
-            Direction enumerator
-        */
-        enum direction{
-            fwd = 1,
-            rev = -1
-        };
-
         /* 
             Constructor.
             

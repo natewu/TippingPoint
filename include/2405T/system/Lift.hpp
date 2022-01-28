@@ -1,11 +1,16 @@
-#include "main.h"
 #pragma once
+#include "main.h"
+#include "2405T/utils/Misc.hpp"
 #include "pros/motors.hpp"
 
 class Lift {
     public:
         Lift(pros::Motor left, pros::Motor right);
         
+        /* 
+            Move the lift.
+        */
+        void move(direction dir = fwd);
         /* 
             Moves the lift to a given point at a given speed.
             
@@ -22,8 +27,20 @@ class Lift {
         */
         void stop();
 
+        /* 
+            Sets default speed
+
+            @param speed The speed of the lift.
+        */
+        void setSpeed(int speed);
+
+        /* 
+            Gets the current position of the lift.
+        */
+        double getPosition();
+
     private:
-        double position();
-        pros::Motor left;
-        pros::Motor right;
+        double position;
+        int speed;
+        pros::Motor left, right;
 };
