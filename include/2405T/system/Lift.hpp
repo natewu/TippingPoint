@@ -1,4 +1,5 @@
 #include "main.h"
+#pragma once
 #include "pros/motors.hpp"
 
 class Lift {

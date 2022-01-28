@@ -1,3 +1,4 @@
+#pragma once
 #include "main.h"
 
 extern pros::Motor Lf;
@@ -20,8 +21,6 @@ extern bool toggle, latch, Rlatch;
 
 extern std::shared_ptr<okapi::OdomChassisController> drive;
 
-void drivetrain(int left, int right, int x);
 int checkSign(int val);
-void driveMotors();
 void motorSpeed();
 void controller();

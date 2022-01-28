@@ -1,3 +1,4 @@
+#pragma once
 #include "main.h"
 #include "pros/motors.hpp"
 #include "2405T/utils/Paths.hpp"

@@ -1,7 +1,7 @@
 #include "main.h"
 #include "2405T/Global.hpp"
 #include "2405T/system/Chassis.hpp"
-#include "2405T/system/Controls.cpp"
+#include "2405T/system/Controls.hpp"
 
 #include <fstream>
 
@@ -31,8 +31,6 @@ void autonomous() {
 	Chassis chassis(Lf, Lr, Rf, Rr);
 
 	Task odometer(controller);
-
-	// chassis.driveTo(, 127, 127, false);
 }
 
 void opcontrol() {
