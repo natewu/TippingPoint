@@ -3,10 +3,10 @@
 
 Claw::Claw(pros::ADIDigitalOut claw) :
     claw(claw) {
-        
+    claw.set_value(0);
 }
 
-void Claw::actuate() {
+void Claw::actuate(){
     if(state){
         claw.set_value(0);
         state = !state;
@@ -17,6 +17,11 @@ void Claw::actuate() {
     }
 }
 
-bool Claw::getStatus() {
+void Claw::reset(){
+    claw.set_value(0);
+    state = false;
+}
+
+bool Claw::getStatus(){
     return state;
 }

@@ -39,6 +39,7 @@ void Drivetrain::headlessDrive(int driveAxis, int turnAxis, int toggle, int stra
 */
 Subsystems::Subsystems(Lift lift, Intake intake, Claw claw) : lift(lift), intake(intake), claw(claw) {
 }
+
 void Subsystems::liftControl(int up, int down){
     double rotations = lift.getPosition();
     double maxRotations = 3600;
