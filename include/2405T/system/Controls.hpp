@@ -69,7 +69,7 @@ class Subsystems{
 
             @param clawState 
          */
-        void clawControl(int clawToggle)
+        void clawControl(int clawToggle);
         
 
     private:

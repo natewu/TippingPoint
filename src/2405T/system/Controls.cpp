@@ -18,10 +18,6 @@ void Drivetrain::drive(int driveAxis, int turnAxis, int strafeAxis) {
 Subsystems::Subsystems(Lift lift, Intake intake, Claw claw) : lift(lift), intake(intake), claw(claw) {
 }
 void Subsystems::liftControl(int up, int down){
-    //TODO: add lift control mechanism stop points
-    //what do you mean by stop points
-    //what are we doing, what are we programming
-    //move forbar up
     double rotations = lift.getPosition();
     double maxRotations = 3600;
     
@@ -43,17 +39,7 @@ void Subsystems::liftControl(int up, int down){
         lift.setSpeed(127);
         lift.stop();
     }
-    /* 
-    if(up){
-        lift.move(fwd);
-    }
-    //move forbar down
-    else if(down){
-        lift.move(rev);
-    }
-    //stop forbar from moving
-    else{
-        lift.stop();
-    } */
 }
-void Subsystems::clawControl()
+void Subsystems::clawControl(int clawToggle){
+
+}
