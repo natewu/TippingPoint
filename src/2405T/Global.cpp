@@ -19,6 +19,7 @@ pros::Motor Lf(1, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS)
     liftR(8, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS),
     intakeL(9, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS),
     intakeR(10, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS);
+pros::ADIDigitalOut claw('A');
 
 //units
 float pi = M_PI;
@@ -27,7 +28,7 @@ float ticksPerInch = 900/(4*pi);
 float inch = tics/ticksPerInch;
 // bool toggle = false, latch = false, Rlatch = true;
 
-std::shared_ptr<okapi::OdomChassisController> drive = 
+/* std::shared_ptr<okapi::OdomChassisController> drive = 
     okapi::ChassisControllerBuilder()
     .withMotors(1, 2, 4, 3) // left motor is 1, right motor is 2 (reversed)
     .withGains(
@@ -43,7 +44,7 @@ std::shared_ptr<okapi::OdomChassisController> drive =
     // green gearset, tracking wheel diameter (2.75 in), track (7 in), and TPR (360)
     .withDimensions(okapi::AbstractMotor::gearset::green, {{2.75_in, 14_in, 1_in, 2.75_in}, okapi::quadEncoderTPR})
     .withOdometry()
-    .buildOdometry();
+    .buildOdometry(); */
 
 int checkSign(int val) {
     return (0.0 < val) - (val < 0.0);

@@ -3,6 +3,7 @@
 #include "2405T/system/Chassis.hpp"
 #include "2405T/system/Lift.hpp"
 #include "2405T/system/Intake.hpp"
+#include "2405T/system/Claw.hpp"
 
 class Drivetrain{
     public: 
@@ -23,21 +24,35 @@ class Drivetrain{
         */
         void drive(int driveAxis, int turnAxis, int strafeAxis = 0);
 
+        /* 
+            Use headless operation.
+
+            @param driveAxis The drive axis.
+            @param turnAxis The turn axis.
+            @param strafeAxis The strafe joystick (if using strafe).
+            @param toggle The button to toggle headless. 
+        */
+        void headlessDrive(int driveAxis, int turnAxis, int toggle, int strafeAxis = 0);
+        
     private:
         Chassis chassis;
         float turnSensitivity;
+        bool headless = false, headlessLatch = false;
 };
 
 class Subsystems{
     public:
         Lift lift;
         Intake intake;
+        Claw claw;
         /* 
             Constructor.
 
             @param lift The lift to use.
+            @param intake The intake to use.
+            @param claw The claw to use.
         */
-        Subsystems(Lift lift, Intake intake);
+        Subsystems(Lift lift, Intake intake, Claw claw);
 
         /* 
             Update the subsystems.
@@ -53,12 +68,19 @@ class Subsystems{
         void liftControl(int up, int down);
 
         /* 
-            Intake controls.
+            Intake controls
 
             @param intake The intake button.
             @param outtake The outtake button.
         */
-        void intakeControl(bool intake, bool outtake);
+        void intakeControl(int intake, int outtake);
+
+        /* 
+            Claw controls
+
+            @param clawState 
+         */
+        void clawControl(int clawToggle);
         
 
     private:

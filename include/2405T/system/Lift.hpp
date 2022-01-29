@@ -9,6 +9,8 @@ class Lift {
         
         /* 
             Move the lift.
+
+            @param dir The direction, fwd or rev
         */
         void move(direction dir = fwd);
         /* 

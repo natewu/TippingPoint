@@ -10,6 +10,7 @@ extern pros::Motor liftR;
 extern pros::Motor intakeL;
 extern pros::Motor intakeR;
 extern pros::Controller master;
+extern pros::ADIDigitalOut claw;
 
 //Sensors
 extern pros::ADIEncoder left;

@@ -11,17 +11,36 @@ Drivetrain::Drivetrain(Chassis chassis, float turnSensitivity) : chassis(chassis
 void Drivetrain::drive(int driveAxis, int turnAxis, int strafeAxis) {
     chassis.opDrive(driveAxis, turnAxis, turnSensitivity, strafeAxis);
 }
+//Headless drivetrain
+void Drivetrain::headlessDrive(int driveAxis, int turnAxis, int toggle, int strafeAxis){
+    if (toggle) {
+		if(!headlessLatch){
+			headless = !headless;
+			headless = true;
+		}
+	} 
+	else {
+		headlessLatch = false;
+	}
+	
+	if(headless){
+		drive(driveAxis, -turnAxis, -strafeAxis);
+
+		pros::lcd::set_text(1, "Headless");
+	} 
+    else {
+		drive(-driveAxis, -turnAxis, strafeAxis);
+	}
+}
+
 
 /* 
     Subsystems section
 */
-Subsystems::Subsystems(Lift lift, Intake intake) : lift(lift), intake(intake) {
+Subsystems::Subsystems(Lift lift, Intake intake, Claw claw) : lift(lift), intake(intake), claw(claw) {
 }
+
 void Subsystems::liftControl(int up, int down){
-    //TODO: add lift control mechanism stop points
-    //what do you mean by stop points
-    //what are we doing, what are we programming
-    //move forbar up
     double rotations = lift.getPosition();
     double maxRotations = 3600;
     
@@ -43,17 +62,16 @@ void Subsystems::liftControl(int up, int down){
         lift.setSpeed(127);
         lift.stop();
     }
-    /* 
-    if(up){
-        lift.move(fwd);
-    }
-    //move forbar down
-    else if(down){
-        lift.move(rev);
-    }
-    //stop forbar from moving
-    else{
-        lift.stop();
-    } */
 }
-
+//TODO: should probably change int to boolean
+void Subsystems::clawControl(int clawToggle){
+    if(clawToggle){
+        if(!claw.latch){
+            claw.latch = true;
+            claw.actuate();
+        }
+    }
+    else{
+        claw.latch = false;
+    }
+}
