@@ -3,7 +3,14 @@
 
 class Claw {
     public:
-        Claw(pros::ADIDigitalOut claw);
+        bool latch = false;
+
+        /* 
+            Constructor.
+            
+            @param piston The piston to use as the claw.
+        */
+        Claw(pros::ADIDigitalOut piston);
         /* 
             Actuate the claw.        
         */
@@ -19,5 +26,5 @@ class Claw {
 
     private:
         bool state = false;
-        pros::ADIDigitalOut storedClaw;
+        pros::ADIDigitalOut claw;
 };

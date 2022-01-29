@@ -73,6 +73,7 @@ void opcontrol() {
 		toggleHeadless(drivetrain);
 		
 		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2));
+		subsystems.clawControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
 
 		pros::delay(20);
 	}

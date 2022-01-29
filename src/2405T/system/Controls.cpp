@@ -40,6 +40,15 @@ void Subsystems::liftControl(int up, int down){
         lift.stop();
     }
 }
+//TODO: should probably change int to boolean
 void Subsystems::clawControl(int clawToggle){
-
+    if(clawToggle){
+        if(!claw.latch){
+            claw.latch = true;
+            claw.actuate();
+        }
+    }
+    else{
+        claw.latch = false;
+    }
 }
