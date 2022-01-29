@@ -11,6 +11,28 @@ Drivetrain::Drivetrain(Chassis chassis, float turnSensitivity) : chassis(chassis
 void Drivetrain::drive(int driveAxis, int turnAxis, int strafeAxis) {
     chassis.opDrive(driveAxis, turnAxis, turnSensitivity, strafeAxis);
 }
+//Headless drivetrain
+void Drivetrain::headlessDrive(int driveAxis, int turnAxis, int toggle, int strafeAxis){
+    if (toggle) {
+		if(!headlessLatch){
+			headless = !headless;
+			headless = true;
+		}
+	} 
+	else {
+		headlessLatch = false;
+	}
+	
+	if(headless){
+		drive(driveAxis, -turnAxis, -strafeAxis);
+
+		pros::lcd::set_text(1, "Headless");
+	} 
+    else {
+		drive(-driveAxis, -turnAxis, strafeAxis);
+	}
+}
+
 
 /* 
     Subsystems section

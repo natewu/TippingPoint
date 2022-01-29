@@ -24,9 +24,20 @@ class Drivetrain{
         */
         void drive(int driveAxis, int turnAxis, int strafeAxis = 0);
 
+        /* 
+            Use headless operation.
+
+            @param driveAxis The drive axis.
+            @param turnAxis The turn axis.
+            @param strafeAxis The strafe joystick (if using strafe).
+            @param toggle The button to toggle headless. 
+        */
+        void headlessDrive(int driveAxis, int turnAxis, int toggle, int strafeAxis = 0);
+        
     private:
         Chassis chassis;
         float turnSensitivity;
+        bool headless = false, headlessLatch = false;
 };
 
 class Subsystems{

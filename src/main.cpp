@@ -34,31 +34,6 @@ void autonomous() {
 	Task odometer(controller);
 }
 
-bool headless = false;
-bool latch = false;
-
-void toggleHeadless(Drivetrain drivetrain){
-	
-	if (master.get_digital(DIGITAL_Y)) {
-		if(!latch){
-			headless = !headless;
-			latch = true;
-		}
-	} 
-	else {
-		latch = false;
-	}
-	
-	if(headless){
-		drivetrain.drive(master.get_analog(ANALOG_LEFT_Y), -master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
-		//set led to red
-		pros::lcd::set_text(1, "Headless");
-	} else {
-		drivetrain.drive(-master.get_analog(ANALOG_LEFT_Y), -master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X));
-	}
-}
-
-
 void opcontrol() {
 	// No need to initialize the chassis because driver control. Instead, initialize the Drivetrain.
 	Drivetrain drivetrain(Chassis(Lf, Lr, Rf, Rr), 0.9);
@@ -70,7 +45,7 @@ void opcontrol() {
 
 	while (true) {
 		//toggle headless mode(reverse for intake)
-		toggleHeadless(drivetrain);
+		drivetrain.headlessDrive(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X), master.get_digital(pros::E_CONTROLLER_DIGITAL_Y));
 		
 		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2));
 		subsystems.clawControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
