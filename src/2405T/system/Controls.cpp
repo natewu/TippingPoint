@@ -15,7 +15,7 @@ void Drivetrain::drive(int driveAxis, int turnAxis, int strafeAxis) {
 /* 
     Subsystems section
 */
-Subsystems::Subsystems(Lift lift, Intake intake) : lift(lift), intake(intake) {
+Subsystems::Subsystems(Lift lift, Intake intake, Claw claw) : lift(lift), intake(intake), claw(claw) {
 }
 void Subsystems::liftControl(int up, int down){
     //TODO: add lift control mechanism stop points
@@ -56,4 +56,4 @@ void Subsystems::liftControl(int up, int down){
         lift.stop();
     } */
 }
-
+void Subsystems::clawControl()
