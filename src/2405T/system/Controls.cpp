@@ -12,13 +12,15 @@ void Drivetrain::drive(int driveAxis, int turnAxis, int strafeAxis) {
     chassis.opDrive(driveAxis, turnAxis, turnSensitivity, strafeAxis);
 }
 //Headless drivetrain
-void Drivetrain::headlessDrive(int driveAxis, int turnAxis, int toggle, int strafeAxis){
-    if (toggle) {
-		if(!headlessLatch){
-			headless = !headless;
-			headless = true;
-		}
-	} 
+void Drivetrain::headlessDrive(int driveAxis, int turnAxis, int toggleOn, int toggleOff, int strafeAxis){
+    if(toggleOn && !headlessLatch){
+        headless = true;
+        headlessLatch = false;
+    }
+    else if(toggleOff && !headlessLatch){
+        headless = false;
+        headlessLatch = true;
+    }
 	else {
 		headlessLatch = false;
 	}
