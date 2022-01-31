@@ -65,6 +65,19 @@ void Subsystems::liftControl(int up, int down){
         lift.stop();
     }
 }
+
+void Subsystems::intakeControl(int intake, int outtake){
+    if(intake){
+        this->intake.intake(12000);
+    }
+    else if(outtake){
+        this->intake.outtake(12000);
+    }
+    else{
+        this->intake.stop();
+    }
+}
+
 //TODO: should probably change int to boolean
 void Subsystems::clawControl(int clawToggle){
     if(clawToggle){
