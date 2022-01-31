@@ -30,9 +30,10 @@ class Drivetrain{
             @param driveAxis The drive axis.
             @param turnAxis The turn axis.
             @param strafeAxis The strafe joystick (if using strafe).
-            @param toggle The button to toggle headless. 
+            @param toggleOn The button to toggle headless. 
+            @param toggleOff The button to toggle off headless.
         */
-        void headlessDrive(int driveAxis, int turnAxis, int toggle, int strafeAxis = 0);
+        void headlessDrive(int driveAxis, int turnAxis, int toggleOn, int toggleOff, int strafeAxis = 0);
         
     private:
         Chassis chassis;
