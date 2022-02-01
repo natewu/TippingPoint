@@ -45,7 +45,7 @@ void opcontrol() {
 
 	while (true) {
 		//toggle headless mode(reverse for intake)
-		drivetrain.headlessDrive(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X), master.get_digital(pros::E_CONTROLLER_DIGITAL_DOWN), master.get_digital(pros::E_CONTROLLER_DIGITAL_UP));
+		drivetrain.headlessDrive(master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X), master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT), master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT));
 
 		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2));
 		subsystems.clawControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
