@@ -35,6 +35,10 @@ class Drivetrain{
         */
         void headlessDrive(int driveAxis, int turnAxis, int toggleOn, int toggleOff, int strafeAxis = 0);
         
+        /* 
+            Get headless status.
+        */
+        bool getHeadless();
     private:
         Chassis chassis;
         float turnSensitivity;

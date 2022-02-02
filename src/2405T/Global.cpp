@@ -56,7 +56,7 @@ void motorSpeed(){
     }
 }
 
-void controller(){
+/* void controller(){
     while(1){
         float tics = Lf.get_encoder_units(); 
         float ticksPerInch = 360/(2.75*pi);
@@ -68,13 +68,13 @@ void controller(){
         delay(55);
         master.print(0,10, "Bot: %02.0f%%", battery::get_capacity()); 
         delay(55);
-        master.print(1,0, "L: %0.2fNm", liftL.get_torque()); 
+        // master.print(1,0, "L: %0.2fNm", liftL.get_torque());
         delay(55);
-        master.print(1,10, "R: %0.2fNm", liftR.get_torque()); 
+        // master.print(1,10, "R: %0.2fNm", liftR.get_torque()); 
         delay(55);
-        master.print(2,2, "%0.2f°C", liftL.get_temperature()); 
+        // master.print(2,2, "%0.2f°C", liftL.get_temperature()); 
         delay(55);
-        master.print(2,14, "%0.2f°C", liftR.get_temperature()); 
+        // master.print(2,14, "%0.2f°C", liftR.get_temperature()); 
         delay(55);
     }
-}
+} */

@@ -1,6 +1,7 @@
 #include "main.h"
 #include "2405T/Global.hpp"
 #include "2405T/system/Chassis.hpp"
+#include "2405T/system/Controller.hpp"
 #include "2405T/system/Controls.hpp"
 #include "pros/misc.h"
 
@@ -15,6 +16,7 @@ void on_center_button() {
 		pros::lcd::clear_line(2);
 	}
 }
+
 
 void initialize() {
 	// pros::lcd::initialize();
@@ -31,7 +33,7 @@ void autonomous() {
 	// Initialize the chassis because autonomous.
 	Chassis chassis(Lf, Lr, Rf, Rr);
 
-	Task odometer(controller);
+	// Task odometer(controller);
 }
 
 void opcontrol() {
@@ -39,6 +41,47 @@ void opcontrol() {
 	Drivetrain drivetrain(Chassis(Lf, Lr, Rf, Rr), 0.9);
 	Subsystems subsystems(Lift(liftL, liftR), Intake(intakeL, intakeR), Claw(claw));
 	subsystems.lift.setSpeed(127);
+
+	auto controller = [&](){
+		int grabs = 20;
+		bool clawStateLatch = false;
+		
+		while(1){
+			
+			//Increment grabs if pistonState is changed
+			if(subsystems.claw.getStatus() && !clawStateLatch){
+				if(grabs > 0){
+					grabs--;
+				}
+				else{
+					grabs = 0;
+				}
+
+				clawStateLatch = true;
+			}
+			else if(!subsystems.claw.getStatus() && clawStateLatch){
+				clawStateLatch = false;
+			}
+
+
+			int totalSeconds = millis() / 1000.0;
+			int minutes = totalSeconds / 60;
+			int seconds = totalSeconds % 60;
+			master.print(0, 0, "%02i:%02i", minutes, seconds);
+			delay(55);
+			master.print(0, 10, "Bot: %02.0f%%", battery::get_capacity()); 
+			delay(55);
+			master.print(1, 0, "Headless: %s", drivetrain.getHeadless() ? "Rev" : "Fwd");
+			delay(55);
+			master.print(2, 0, "Grabs: %02.0d", grabs); 
+			delay(55);
+			// master.print(2,2, "%0.2f°C", liftL.get_temperature()); 
+			delay(55);
+			// master.print(2,14, "%0.2f°C", liftR.get_temperature()); 
+			delay(55);
+    	}
+	};
+
 
 	master.clear();
 	Task odometer(controller);
