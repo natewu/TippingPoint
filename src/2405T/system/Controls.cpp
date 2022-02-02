@@ -35,6 +35,9 @@ void Drivetrain::headlessDrive(int driveAxis, int turnAxis, int toggleOn, int to
 	}
 }
 
+bool Drivetrain::getHeadless(){
+    return headless;
+}
 
 /* 
     Subsystems section
