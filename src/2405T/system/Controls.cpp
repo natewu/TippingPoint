@@ -21,11 +21,11 @@ void Drivetrain::headlessDrive(int driveAxis, int turnAxis, int toggleOn, int to
         headless = false;
         headlessLatch = true;
     }
-	else {
+    else {
 		headlessLatch = false;
 	}
 	
-	if(headless){
+    if(headless){
 		drive(driveAxis, -turnAxis, -strafeAxis);
 
 		pros::lcd::set_text(1, "Headless");
@@ -49,7 +49,7 @@ void Subsystems::liftControl(int up, int down){
     double rotations = lift.getPosition();
     double maxRotations = 3600;
     
-    std::cout << "rotations: " << rotations << std::endl;
+    // std::cout << "rotations: " << rotations << std::endl;
     //Check if the lift is at the top or bottom, prevent it from going past the top or bottom
     if(up && rotations < maxRotations){
         if(rotations > maxRotations*0.85){
@@ -69,14 +69,28 @@ void Subsystems::liftControl(int up, int down){
     }
 }
 
-void Subsystems::intakeControl(int intake, int outtake){
-    if(intake){
-        this->intake.intake(12000);
+void Subsystems::intakeControl(int in, int out){
+    /*
+    if intakeLatch is false, keep intake running
+    if not, intake stops running forever
+    if intakeToggle is pressed, run the intake
+    */
+    if(in && !this->intakeLatch){
+        //toggle intake and latch
+        this->intakeToggle = !this->intakeToggle;
+        this->intakeLatch = true;
     }
-    else if(outtake){
+    else if(out && !this->intakeLatch){
+        this->intakeToggle = false;
         this->intake.outtake(12000);
     }
-    else{
+    else if(!in && this->intakeLatch){
+        this->intakeLatch = false;
+    }
+    if(this->intakeToggle){
+        this->intake.intake(12000);
+    }
+    else if(!out){
         this->intake.stop();
     }
 }

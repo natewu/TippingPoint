@@ -1,6 +1,8 @@
 #pragma once
 #include "main.h"
+#include "2405T/system/Chassis.hpp"
 #include "2405T/utils/Misc.hpp"
+#include "2405T/utils/Paths.hpp"
 
 class Slew {
     public:
@@ -67,7 +69,7 @@ class Odom{
             @param left The left encoder.
             @param right The right encoder.
         */
-        Odom(pros::Motor left, pros::Motor right);
+        Odom(Chassis chassis);
 
         /* 
             Update the odometry.
@@ -105,8 +107,7 @@ class Odom{
         float angularAcceleration();
 
     private:
-        pros::Motor left;
-        pros::ADIEncoder right;
+        Chassis chassis;
         Vector last_position;
         float last_heading;
         Vector last_velocity;
@@ -114,4 +115,3 @@ class Odom{
         float last_angular_velocity;
         float last_angular_acceleration;
 };
-}

@@ -55,3 +55,11 @@ Chassis& Chassis::stop() {
     move(0,0);
     return *this;
 }
+
+int Chassis::getLeft() {
+    return (leftFront.get_position() + leftRear.get_position()) / 2;
+}
+
+int Chassis::getRight() {
+    return (rightFront.get_position() + rightRear.get_position()) / 2;
+}

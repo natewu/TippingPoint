@@ -2,7 +2,6 @@
 
 class Intake{
     public:
-
         /* 
             Constructor.
             
@@ -30,4 +29,5 @@ class Intake{
         void stop();
     private:
         pros::Motor left, right;
+        
 };

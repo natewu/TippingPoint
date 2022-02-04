@@ -1,10 +1,10 @@
 #include "main.h"
+#include "pros/misc.h"
 #include "2405T/Global.hpp"
 #include "2405T/system/Chassis.hpp"
 #include "2405T/system/Controller.hpp"
 #include "2405T/system/Controls.hpp"
-#include "pros/misc.h"
-#include "2405T/utils/Auton.cpp"
+#include "2405T/utils/Auton.hpp"
 
 #include <fstream>
 
@@ -30,24 +30,21 @@ void disabled() {}
 
 void competition_initialize() {}
 
-void autonomous {
-	Vector path1(0,0);
-	Vector path2(0,0);
+void autonomous() { 
+	// Vector path1(0,0);
+	// Vector path2(0,0);
 	// Initialize the chassis because autonomous.
 	Chassis chassis(Lf, Lr, Rf, Rr);
 	// Initialize subsystems 
-	Subsystems subsystems(Lift(liftL, liftR), Intake(intakeL, intakeR), Claw(claw));
 	
 	//initialize auton.cpp fwd function
 	
 	// claw close
-	subsystems.claw.actuate();
-	
 
 	// pros::delay(500);
 
 	// Task odometer(controller);
-}
+};
 
 void opcontrol() {
 	// No need to initialize the chassis because driver control. Instead, initialize the Drivetrain.
@@ -56,11 +53,13 @@ void opcontrol() {
 	subsystems.lift.setSpeed(127);
 
 	auto controller = [&](){
-		int grabs = 20;
+		int grabs = 40;
 		bool clawStateLatch = false;
 		
 		while(1){
 			
+
+
 			//Increment grabs if pistonState is changed
 			if(subsystems.claw.getStatus() && !clawStateLatch){
 				if(grabs > 0){
@@ -106,8 +105,10 @@ void opcontrol() {
 			master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), 
 			master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X), 
 			master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT), 
-			master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)
+			master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)
 		);
+		//What button do u want it to be pressed on?
+
 		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2));
 		subsystems.clawControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
 		subsystems.intakeControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2), master.get_digital(pros::E_CONTROLLER_DIGITAL_X));

@@ -39,6 +39,7 @@ class Drivetrain{
             Get headless status.
         */
         bool getHeadless();
+
     private:
         Chassis chassis;
         float turnSensitivity;
@@ -89,5 +90,6 @@ class Subsystems{
         
 
     private:
-        
+        bool intakeToggle = false;
+        bool intakeLatch = false;
 };

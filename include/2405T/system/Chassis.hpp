@@ -48,6 +48,16 @@ class Chassis{
         */
         Chassis& stop();
 
+        /* 
+            Get the average left position.
+        */
+        int getLeft();
+
+        /* 
+            Get the average right position.
+        */
+        int getRight();
+
     private:
         pros::Motor leftFront, 
                     rightFront, 
