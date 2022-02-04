@@ -1,5 +1,6 @@
 #include "main.h"
 #include "2405T/utils/Auton.hpp"
+#include "2405T/utils/Paths.cpp"
 
 Slew::Slew(int max, int rate, direction dir) {
     this->max = max;
@@ -47,3 +48,7 @@ int Slew::update(int input){
 
     return last_output;
 }
+//find path magnitude
+
+//initialize the function
+// Use front motor to pick up
