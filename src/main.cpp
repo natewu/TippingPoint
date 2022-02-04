@@ -31,8 +31,7 @@ void disabled() {}
 void competition_initialize() {}
 
 void autonomous {
-	Vector path1(0,0);
-	Vector path2(0,0);
+	
 	// Initialize the chassis because autonomous.
 	Chassis chassis(Lf, Lr, Rf, Rr);
 	// Initialize subsystems 
