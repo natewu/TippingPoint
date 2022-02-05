@@ -30,23 +30,18 @@ void disabled() {}
 void competition_initialize() {}
 
 void autonomous() { 
-	// Vector path1(0,0);
-	// Vector path2(0,0);
-	// Initialize the chassis because autonomous.
-	Chassis chassis(Lf, Lr, Rf, Rr);
-	// Initialize subsystems 
-	pros::delay(500);
-	chassis.drive();
-	//initialize auton.cpp fwd function
-	chassis.move(127, 127, 0);
-	pros::delay(1000);
-	chassis.move(0, 0, 0);
-	
-	// claw close
-
-	// pros::delay(500);
-
 	// Task odometer(controller);
+	Subsystems subsystems(Lift(liftL, liftR), Intake(intakeL, intakeR), Claw(claw));
+
+	drive->okapi::OdomChassisController::setState({0_ft, 0_ft, 0_deg});
+	drive->driveToPoint({10.5_ft, 0_ft});
+	subsystems.claw.actuate();
+	drive->driveToPoint({0_ft, 0_ft}, true);
+
+
+
+	// drive->driveToPoint({-1_ft, 0_ft});
+	
 };
 
 void opcontrol() {
