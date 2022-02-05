@@ -2,7 +2,6 @@
 #include "pros/misc.h"
 #include "2405T/Global.hpp"
 #include "2405T/system/Chassis.hpp"
-#include "2405T/system/Controller.hpp"
 #include "2405T/system/Controls.hpp"
 #include "2405T/utils/Auton.hpp"
 
@@ -36,8 +35,12 @@ void autonomous() {
 	// Initialize the chassis because autonomous.
 	Chassis chassis(Lf, Lr, Rf, Rr);
 	// Initialize subsystems 
-	
+	pros::delay(500);
+	chassis.drive();
 	//initialize auton.cpp fwd function
+	chassis.move(127, 127, 0);
+	pros::delay(1000);
+	chassis.move(0, 0, 0);
 	
 	// claw close
 
