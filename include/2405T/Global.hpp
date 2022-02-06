@@ -1,5 +1,6 @@
 #pragma once
 #include "main.h"
+#include "system/Controls.hpp"
 
 extern pros::Motor Lf;
 extern pros::Motor Rf;
@@ -25,3 +26,4 @@ extern std::shared_ptr<okapi::OdomChassisController> drive;
 int checkSign(int val);
 void motorSpeed();
 void controller();
+void progSkills(Subsystems subsystems);

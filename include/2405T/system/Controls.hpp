@@ -71,7 +71,7 @@ class Subsystems{
             @param up The up button.
             @param down The down button.
         */
-        void liftControl(int up, int down);
+        void liftControl(int up, int down, int reset, int unlock);
 
         /* 
             Intake controls

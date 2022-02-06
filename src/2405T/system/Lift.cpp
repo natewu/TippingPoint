@@ -1,5 +1,6 @@
 #include "main.h"
 #include "2405T/system/Lift.hpp"
+#include "pros/motors.h"
 #include "pros/motors.hpp"
 
 // Constructor sets target motor
@@ -23,6 +24,11 @@ void Lift::move(int speed, double target) {
 
 void Lift::reset(){
     left.tare_position() && right.tare_position();
+    left.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD) && right.set_brake_mode(pros::E_MOTOR_BRAKE_HOLD);
+}
+
+void Lift::unlock(){
+    left.set_brake_mode(pros::E_MOTOR_BRAKE_COAST) && right.set_brake_mode(pros::E_MOTOR_BRAKE_COAST);
 }
 
 void Lift::stop(){

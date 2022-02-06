@@ -45,7 +45,7 @@ bool Drivetrain::getHeadless(){
 Subsystems::Subsystems(Lift lift, Intake intake, Claw claw) : lift(lift), intake(intake), claw(claw) {
 }
 
-void Subsystems::liftControl(int up, int down){
+void Subsystems::liftControl(int up, int down, int reset, int unlock){
     double rotations = lift.getPosition();
     double maxRotations = 3600;
     
@@ -66,6 +66,14 @@ void Subsystems::liftControl(int up, int down){
     else{
         lift.setSpeed(127);
         lift.stop();
+    }
+
+    if(unlock){
+        lift.unlock();
+    }
+
+    if(reset){
+        lift.reset();
     }
 }
 

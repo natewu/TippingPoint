@@ -33,20 +33,17 @@ void autonomous() {
 	// Task odometer(controller);
 	Subsystems subsystems(Lift(liftL, liftR), Intake(intakeL, intakeR), Claw(claw));
 
+	//driver
 	drive->okapi::OdomChassisController::setState({0_ft, 0_ft, 0_deg});
 	drive->driveToPoint({10.5_ft, 0_ft});
 	subsystems.claw.actuate();
 	drive->driveToPoint({0_ft, 0_ft}, true);
-
-
-
-	// drive->driveToPoint({-1_ft, 0_ft});
-	
+	// progSkills(subsystems);
 };
 
 void opcontrol() {
 	// No need to initialize the chassis because driver control. Instead, initialize the Drivetrain.
-	Drivetrain drivetrain(Chassis(Lf, Lr, Rf, Rr), 0.9);
+	Drivetrain drivetrain(Chassis(Lf, Lr, Rf, Rr), 0.95);
 	Subsystems subsystems(Lift(liftL, liftR), Intake(intakeL, intakeR), Claw(claw));
 	subsystems.lift.setSpeed(127);
 
@@ -55,9 +52,6 @@ void opcontrol() {
 		bool clawStateLatch = false;
 		
 		while(1){
-			
-
-
 			//Increment grabs if pistonState is changed
 			if(subsystems.claw.getStatus() && !clawStateLatch){
 				if(grabs > 0){
@@ -107,7 +101,8 @@ void opcontrol() {
 		);
 		//What button do u want it to be pressed on?
 
-		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2));
+		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2), master.get_digital(pros::E_CONTROLLER_DIGITAL_B), master.get_digital(pros::E_CONTROLLER_DIGITAL_A));
+		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2), master.get_digital(pros::E_CONTROLLER_DIGITAL_B), master.get_digital(pros::E_CONTROLLER_DIGITAL_A));
 		subsystems.clawControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
 		subsystems.intakeControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2), master.get_digital(pros::E_CONTROLLER_DIGITAL_X));
 

@@ -1,3 +1,4 @@
+#include "Global.hpp"
 #include "main.h"
 #include "pros/misc.h"
 #include "pros/misc.hpp"
@@ -78,3 +79,16 @@ void motorSpeed(){
         delay(55);
     }
 } */
+//skills auton
+void progSkills(Subsystems subsystems){
+    float ratio = 1.75;
+    float angleRatio = 3.25;
+    // every 1.75ft is 1 ft IRL for the ratio
+    drive->okapi::OdomChassisController::setState({0_ft, 0_ft, 0_deg});
+	drive->driveToPoint({2.5_ft*ratio, 0_ft});
+	subsystems.claw.actuate();
+    drive->turnToAngle(90_deg*angleRatio);
+    drive->okapi::OdomChassisController::setState({0_ft, 0_ft, 0_deg});
+	drive->driveToPoint({4_ft, 0_ft});
+
+}
