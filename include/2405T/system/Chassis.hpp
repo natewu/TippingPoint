@@ -1,6 +1,7 @@
 #pragma once
 #include "main.h"
 #include "pros/motors.hpp"
+#include "2405T/system/MotorGroup.hpp"
 #include "2405T/utils/Paths.hpp"
 
 class Chassis{
@@ -11,6 +12,16 @@ class Chassis{
             Constructor for the Chassis class. 
         */
         Chassis(pros::Motor leftFront, pros::Motor leftRear, pros::Motor rightFront, pros::Motor rightRear);
+
+        /* 
+            Constructor for a 6 motor configured chassis.
+
+            @param leftFront The left front motor.
+            @param leftRear The left rear motor group.
+            @param rightFront The right front motor.
+            @param rightRear The right rear motor group.
+        */
+        Chassis(pros::Motor leftFront, MotorGroup leftRear, pros::Motor rightFront, MotorGroup rightRear);
 
         /* 
             Moves the chassis at a given speed on each side.
@@ -63,4 +74,11 @@ class Chassis{
                     rightFront, 
                     leftRear, 
                     rightRear;
+
+        std::optional<MotorGroup> leftRearGroup,
+                                    rightRearGroup;
 };
+
+//Combine two pros::Motor objects into one pros::Motor object
+pros::Motor operator+(pros::Motor master, pros::Motor slave);
+
