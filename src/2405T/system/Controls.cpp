@@ -61,7 +61,7 @@ void Subsystems::liftControl(int up, int down, int reset, int unlock){
     }
     else if(down && rotations > 0){
     //  std::cout << "error: " << error << std::endl;
-        
+        //too slow when trying to use torque, fix
         lift.setSpeed(90);
         if(rotations < maxRotations*0.5){
             lift.setSpeed(90*(rotations/maxRotations));
