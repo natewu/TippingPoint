@@ -1,43 +1,44 @@
 #include "main.h"
 #include "2405T/system/Controls.hpp"
 
-/* 
-    Drivetrain section
-*/
-Drivetrain::Drivetrain(Chassis chassis, float turnSensitivity) : chassis(chassis) {
-    this->turnSensitivity = turnSensitivity;
-}
-//Controller drivetrain
-void Drivetrain::drive(int driveAxis, int turnAxis, int strafeAxis) {
-    chassis.opDrive(driveAxis, turnAxis, turnSensitivity, strafeAxis);
-}
-//Headless drivetrain
-void Drivetrain::headlessDrive(int driveAxis, int turnAxis, int toggleOn, int toggleOff, int strafeAxis){
-    if(toggleOn && !headlessLatch){
-        headless = true;
-        headlessLatch = false;
-    }
-    else if(toggleOff && !headlessLatch){
-        headless = false;
-        headlessLatch = true;
-    }
-    else {
-		headlessLatch = false;
-	}
+// /* 
+//     Drivetrain section
+// */
+// Drivetrain::Drivetrain(Chassis chassis, float turnSensitivity) : chassis(chassis) {
+//     this->turnSensitivity = turnSensitivity;
+// }
+
+// //Controller drivetrain
+// void Drivetrain::drive(int driveAxis, int turnAxis, int strafeAxis) {
+//     chassis.opDrive(driveAxis, turnAxis, turnSensitivity, strafeAxis);
+// }
+// //Headless drivetrain
+// void Drivetrain::headlessDrive(int driveAxis, int turnAxis, int toggleOn, int toggleOff, int strafeAxis){
+//     if(toggleOn && !headlessLatch){
+//         headless = true;
+//         headlessLatch = false;
+//     }
+//     else if(toggleOff && !headlessLatch){
+//         headless = false;
+//         headlessLatch = true;
+//     }
+//     else {
+// 		headlessLatch = false;
+// 	}
 	
-    if(headless){
-		drive(driveAxis, -turnAxis, -strafeAxis);
+//     if(headless){
+// 		drive(driveAxis, -turnAxis, -strafeAxis);
 
-		pros::lcd::set_text(1, "Headless");
-	} 
-    else {
-		drive(-driveAxis, -turnAxis, strafeAxis);
-	}
-}
+// 		pros::lcd::set_text(1, "Headless");
+// 	} 
+//     else {
+// 		drive(-driveAxis, -turnAxis, strafeAxis);
+// 	}
+// }
 
-bool Drivetrain::getHeadless(){
-    return headless;
-}
+// bool Drivetrain::getHeadless(){
+//     return headless;
+// }
 
 /* 
     Subsystems section
