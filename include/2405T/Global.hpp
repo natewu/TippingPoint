@@ -6,6 +6,8 @@ extern pros::Motor Lf;
 extern pros::Motor Rf;
 extern pros::Motor Lr;
 extern pros::Motor Rr;
+extern pros::Motor Lr1;
+extern pros::Motor Rr1;
 extern pros::Motor liftL;
 extern pros::Motor liftR;
 extern pros::Motor intakeL;

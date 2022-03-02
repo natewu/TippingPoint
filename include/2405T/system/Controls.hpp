@@ -15,8 +15,8 @@ class Drivetrain{
             @param chassis The chassis to use.
             @param turnSensitivity The sensitivity of the turn.
         */
-        Drivetrain(ChassisType chassisType, float turnSensitivity = 1){
-            chassis(chassisType);
+        Drivetrain(ChassisType chassisType, float turnSensitivity = 1) : chassis(chassisType){
+           
             this->turnSensitivity = turnSensitivity;
         }
 

@@ -45,7 +45,7 @@ void autonomous() {
 void opcontrol() {
 	// No need to initialize the chassis because driver control. Instead, initialize the Drivetrain.
 	// Drivetrain drivetrain(Chassis(Lf, Lr, Rf, Rr), 0.95);
-	Drivetrain drivetrain(VectorChassis(Lf, Lr, Rf, Rr, Lr1, Lr2), 0.95);
+	Drivetrain drivetrain(VectorChassis(Lf, Lr, Rf, Rr, Lr1, Rr1), 0.95);
 	Subsystems subsystems(Lift(liftL, liftR), Intake(intakeL, intakeR), Claw(claw));
 	subsystems.lift.setSpeed(127);
 
