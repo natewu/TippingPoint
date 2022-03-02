@@ -48,9 +48,10 @@ Subsystems::Subsystems(Lift lift, Intake intake, Claw claw) : lift(lift), intake
 
 void Subsystems::liftControl(int up, int down, int reset, int unlock){
     double rotations = lift.getPosition();
-    double maxRotations = 3600;
+    double maxRotations = 1750;
     
-    // std::cout << "rotations: " << rotations << std::endl;
+    // double error = (maxRotations - rotations)/rotations;
+    // std::cout << "error: " << error << std::endl;
     //Check if the lift is at the top or bottom, prevent it from going past the top or bottom
     if(up && rotations < maxRotations){
         if(rotations > maxRotations*0.85){
@@ -59,9 +60,13 @@ void Subsystems::liftControl(int up, int down, int reset, int unlock){
         lift.move(fwd);
     }
     else if(down && rotations > 0){
-        if(rotations < maxRotations*0.3){
-            lift.setSpeed(50);
+    //  std::cout << "error: " << error << std::endl;
+        
+        lift.setSpeed(90);
+        if(rotations < maxRotations*0.5){
+            lift.setSpeed(90*(rotations/maxRotations));
         }
+
         lift.move(rev);
     }
     else{
