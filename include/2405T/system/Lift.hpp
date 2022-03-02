@@ -24,6 +24,8 @@ class Lift {
             Recalibrates the lift to zero at set position.
         */
         void reset();
+        /* Unlock */
+        void unlock();
         /* 
             Stops the lift.
         */

@@ -1,10 +1,10 @@
 #include "main.h"
+#include "2405T/utils/Paths.hpp"
+#include "pros/misc.h"
 #include "2405T/Global.hpp"
 #include "2405T/system/Chassis.hpp"
-#include "2405T/system/Controller.hpp"
 #include "2405T/system/Controls.hpp"
-#include "pros/misc.h"
-#include "2405T/utils/Auton.cpp"
+#include "2405T/utils/Auton.hpp"
 
 #include <fstream>
 
@@ -30,36 +30,30 @@ void disabled() {}
 
 void competition_initialize() {}
 
-void autonomous {
-	
-	// Initialize the chassis because autonomous.
-	Chassis chassis(Lf, Lr, Rf, Rr);
-	// Initialize subsystems 
-	Subsystems subsystems(Lift(liftL, liftR), Intake(intakeL, intakeR), Claw(claw));
-	
-	//initialize auton.cpp fwd function
-	
-	// claw close
-	subsystems.claw.actuate();
-	
-
-	// pros::delay(500);
-
+void autonomous() { 
 	// Task odometer(controller);
-}
+	Subsystems subsystems(Lift(liftL, liftR), Intake(intakeL, intakeR), Claw(claw));
+
+	//driver
+	drive->okapi::OdomChassisController::setState({0_ft, 0_ft, 0_deg});
+	drive->driveToPoint({10.5_ft, 0_ft});
+	subsystems.claw.actuate();
+	drive->driveToPoint({0_ft, 0_ft}, true);
+	// progSkills(subsystems);
+};
 
 void opcontrol() {
 	// No need to initialize the chassis because driver control. Instead, initialize the Drivetrain.
-	Drivetrain drivetrain(Chassis(Lf, Lr, Rf, Rr), 0.9);
+	// Drivetrain drivetrain(Chassis(Lf, Lr, Rf, Rr), 0.95);
+	Drivetrain drivetrain(VectorChassis(Lf, Lr, Rf, Rr, Lr1, Rr1), 0.95);
 	Subsystems subsystems(Lift(liftL, liftR), Intake(intakeL, intakeR), Claw(claw));
 	subsystems.lift.setSpeed(127);
 
 	auto controller = [&](){
-		int grabs = 20;
+		int grabs = 40;
 		bool clawStateLatch = false;
 		
 		while(1){
-			
 			//Increment grabs if pistonState is changed
 			if(subsystems.claw.getStatus() && !clawStateLatch){
 				if(grabs > 0){
@@ -105,9 +99,12 @@ void opcontrol() {
 			master.get_analog(pros::E_CONTROLLER_ANALOG_LEFT_Y), 
 			master.get_analog(pros::E_CONTROLLER_ANALOG_RIGHT_X), 
 			master.get_digital(pros::E_CONTROLLER_DIGITAL_LEFT), 
-			master.get_digital(pros::E_CONTROLLER_DIGITAL_RIGHT)
+			master.get_digital(pros::E_CONTROLLER_DIGITAL_UP)
 		);
-		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2));
+		//What button do u want it to be pressed on?
+
+		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2), master.get_digital(pros::E_CONTROLLER_DIGITAL_B), master.get_digital(pros::E_CONTROLLER_DIGITAL_A));
+		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2), master.get_digital(pros::E_CONTROLLER_DIGITAL_B), master.get_digital(pros::E_CONTROLLER_DIGITAL_A));
 		subsystems.clawControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
 		subsystems.intakeControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2), master.get_digital(pros::E_CONTROLLER_DIGITAL_X));
 

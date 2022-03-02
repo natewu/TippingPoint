@@ -1,3 +1,4 @@
+#include "Global.hpp"
 #include "main.h"
 #include "pros/misc.h"
 #include "pros/misc.hpp"
@@ -15,10 +16,12 @@ pros::Motor Lf(1, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS)
     Rf(2, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS),
     Lr(3, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS),
     Rr(4, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS),
-    liftL(7, pros::E_MOTOR_GEARSET_36, false, pros::E_MOTOR_ENCODER_COUNTS),
-    liftR(8, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS),
-    intakeL(9, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS),
-    intakeR(10, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS);
+    Lr1(5, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS),
+    Rr1(6, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS),
+    liftL(7, pros::E_MOTOR_GEARSET_36, true, pros::E_MOTOR_ENCODER_COUNTS),
+    liftR(8, pros::E_MOTOR_GEARSET_36, false, pros::E_MOTOR_ENCODER_COUNTS),
+    intakeL(9, pros::E_MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_COUNTS),
+    intakeR(10, pros::E_MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_COUNTS);
 pros::ADIDigitalOut claw('A');
 
 //units
@@ -28,23 +31,23 @@ float ticksPerInch = 900/(4*pi);
 float inch = tics/ticksPerInch;
 // bool toggle = false, latch = false, Rlatch = true;
 
-/* std::shared_ptr<okapi::OdomChassisController> drive = 
+std::shared_ptr<okapi::OdomChassisController> drive = 
     okapi::ChassisControllerBuilder()
-    .withMotors(1, 2, 4, 3) // left motor is 1, right motor is 2 (reversed)
+    .withMotors(-1, -2, -4, -3) // left motor is 1, right motor is 2 (reversed)
     .withGains(
-        {0.00082, 0, 0.00008}, // distance controller gains
+        {0.00165, 0, 0.00011}, // distance controller gains
         {0.00089, 0, 0.00005}, // turn controller gains
-        {0.00035, 0, 0.00009}  // angle controller gains (helps drive straight)
+        {0.00037, 0, 0.00009}  // angle controller gains (helps drive straight)
     )
-    .withSensors(
-        okapi::ADIEncoder{'A', 'B'}, // left encoder in ADI ports A & B
-        okapi::ADIEncoder{'C', 'D'},  // right encoder in ADI ports C & D (reversed)
-		okapi::ADIEncoder{'E', 'F'}  // middle encoder in ADI ports E & F
-    )
+    // .withSensors(
+    //     okapi::ADIEncoder{'A', 'B'}, // left encoder in ADI ports A & B
+    //     okapi::ADIEncoder{'C', 'D'},  // right encoder in ADI ports C & D (reversed)
+	// 	okapi::ADIEncoder{'E', 'F'}  // middle encoder in ADI ports E & F
+    // )
     // green gearset, tracking wheel diameter (2.75 in), track (7 in), and TPR (360)
-    .withDimensions(okapi::AbstractMotor::gearset::green, {{2.75_in, 14_in, 1_in, 2.75_in}, okapi::quadEncoderTPR})
+    .withDimensions(okapi::AbstractMotor::gearset::green, {{4_in, 14_in}, okapi::quadEncoderTPR})
     .withOdometry()
-    .buildOdometry(); */
+    .buildOdometry();
 
 int checkSign(int val) {
     return (0.0 < val) - (val < 0.0);
@@ -78,3 +81,16 @@ void motorSpeed(){
         delay(55);
     }
 } */
+//skills auton
+void progSkills(Subsystems subsystems){
+    float ratio = 1.75;
+    float angleRatio = 3.25;
+    // every 1.75ft is 1 ft IRL for the ratio
+    drive->okapi::OdomChassisController::setState({0_ft, 0_ft, 0_deg});
+	drive->driveToPoint({2.5_ft*ratio, 0_ft});
+	subsystems.claw.actuate();
+    drive->turnToAngle(90_deg*angleRatio);
+    drive->okapi::OdomChassisController::setState({0_ft, 0_ft, 0_deg});
+	drive->driveToPoint({4_ft, 0_ft});
+
+}
