@@ -46,7 +46,7 @@ void opcontrol() {
 	// No need to initialize the chassis because driver control. Instead, initialize the Drivetrain.
 	// Drivetrain drivetrain(Chassis(Lf, Lr, Rf, Rr), 0.95);
 	Drivetrain drivetrain(VectorChassis(Lf, Lr, Rf, Rr, Lr1, Rr1), 0.95);
-	Subsystems subsystems(Lift(liftL, liftR), Intake(intakeL, intakeR), Claw(claw));
+	Subsystems subsystems(Lift(liftL, liftR), Claw(claw), Claw(rearClaw));
 	subsystems.lift.setSpeed(127);
 
 	auto controller = [&](){
@@ -106,6 +106,7 @@ void opcontrol() {
 		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2), master.get_digital(pros::E_CONTROLLER_DIGITAL_B), master.get_digital(pros::E_CONTROLLER_DIGITAL_A));
 		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2), master.get_digital(pros::E_CONTROLLER_DIGITAL_B), master.get_digital(pros::E_CONTROLLER_DIGITAL_A));
 		subsystems.clawControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
+		subsystems.rearClawControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2));
 		// subsystems.intakeControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2), master.get_digital(pros::E_CONTROLLER_DIGITAL_X));
 
 		pros::delay(20);

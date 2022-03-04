@@ -14,6 +14,7 @@ extern pros::Motor intakeL;
 extern pros::Motor intakeR;
 extern pros::Controller master;
 extern pros::ADIDigitalOut claw;
+extern pros::ADIDigitalOut rearClaw;
 
 //Sensors
 extern pros::ADIEncoder left;

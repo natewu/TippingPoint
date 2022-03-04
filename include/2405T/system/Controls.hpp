@@ -80,8 +80,25 @@ class Drivetrain{
 class Subsystems{
     public:
         Lift lift;
-        Intake intake;
+        std::optional<Intake> intake;
         Claw claw;
+        std::optional<Claw> rearClaw;
+
+        /* 
+            Constructor.
+
+            @param lift The lift to use.
+            @param claw The claw to use.
+        */
+        Subsystems(Lift lift, Claw claw);
+        /* 
+            Constructor.
+
+            @param lift The lift to use.
+            @param claw The claw to use.
+            @param rearClaw The rear claw to use.
+        */
+        Subsystems(Lift lift, Claw claw, Claw rearClaw);
         /* 
             Constructor.
 
@@ -90,6 +107,15 @@ class Subsystems{
             @param claw The claw to use.
         */
         Subsystems(Lift lift, Intake intake, Claw claw);
+        /* 
+            Constructor.
+
+            @param lift The lift to use.
+            @param intake The intake to use.
+            @param claw The claw to use.
+            @param rearClaw The rear claw to use.
+        */
+        Subsystems(Lift lift, Intake intake, Claw claw, Claw rearClaw);
 
         /* 
             Update the subsystems.
@@ -119,6 +145,12 @@ class Subsystems{
          */
         void clawControl(int clawToggle);
         
+        /*
+            Rear Claw Controls
+
+            @param clawState
+        */
+        void rearClawControl(int clawToggle);
 
     private:
         bool intakeToggle = false;
