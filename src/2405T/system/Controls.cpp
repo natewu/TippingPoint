@@ -43,7 +43,13 @@
 /* 
     Subsystems section
 */
+Subsystems::Subsystems(Lift lift, Claw claw) : lift(lift), claw(claw) {
+}
+Subsystems::Subsystems(Lift lift, Claw claw, Claw rearClaw) : lift(lift), claw(claw), rearClaw(rearClaw) {
+}
 Subsystems::Subsystems(Lift lift, Intake intake, Claw claw) : lift(lift), intake(intake), claw(claw) {
+}
+Subsystems::Subsystems(Lift lift, Intake intake, Claw claw, Claw rearClaw) : lift(lift), intake(intake), claw(claw), rearClaw(rearClaw) {
 }
 
 void Subsystems::liftControl(int up, int down, int reset, int unlock){
@@ -61,10 +67,10 @@ void Subsystems::liftControl(int up, int down, int reset, int unlock){
     }
     else if(down && rotations > 0){
     //  std::cout << "error: " << error << std::endl;
-        
+        //too slow when trying to use torque, fix
         lift.setSpeed(90);
         if(rotations < maxRotations*0.5){
-            lift.setSpeed(90*(rotations/maxRotations));
+            lift.setSpeed(90*(0.7));
         }
 
         lift.move(rev);
@@ -96,16 +102,16 @@ void Subsystems::intakeControl(int in, int out){
     }
     else if(out && !this->intakeLatch){
         this->intakeToggle = false;
-        this->intake.outtake(12000);
+        this->intake->outtake(12000);
     }
     else if(!in && this->intakeLatch){
         this->intakeLatch = false;
     }
     if(this->intakeToggle){
-        this->intake.intake(12000);
+        this->intake->intake(12000);
     }
     else if(!out){
-        this->intake.stop();
+        this->intake->stop();
     }
 }
 
@@ -119,5 +125,17 @@ void Subsystems::clawControl(int clawToggle){
     }
     else{
         claw.latch = false;
+    }
+}
+
+void Subsystems::rearClawControl(int clawToggle){
+    if(clawToggle){
+        if(!rearClaw->latch){
+            rearClaw->latch = true;
+            rearClaw->actuate();
+        }
+    }
+    else{
+        rearClaw->latch = false;
     }
 }
