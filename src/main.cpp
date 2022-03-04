@@ -106,7 +106,7 @@ void opcontrol() {
 		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2), master.get_digital(pros::E_CONTROLLER_DIGITAL_B), master.get_digital(pros::E_CONTROLLER_DIGITAL_A));
 		subsystems.liftControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_L1), master.get_digital(pros::E_CONTROLLER_DIGITAL_L2), master.get_digital(pros::E_CONTROLLER_DIGITAL_B), master.get_digital(pros::E_CONTROLLER_DIGITAL_A));
 		subsystems.clawControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R1));
-		subsystems.intakeControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2), master.get_digital(pros::E_CONTROLLER_DIGITAL_X));
+		// subsystems.intakeControl(master.get_digital(pros::E_CONTROLLER_DIGITAL_R2), master.get_digital(pros::E_CONTROLLER_DIGITAL_X));
 
 		pros::delay(20);
 	}
