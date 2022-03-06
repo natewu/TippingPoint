@@ -44,14 +44,16 @@ float tics = Lf.get_position();
 float ticksPerInch = 900/(4*pi);
 float inch = tics/ticksPerInch;
 // bool toggle = false, latch = false, Rlatch = true;
+okapi::MotorGroup rightGroup({-15, -16, -17});
+okapi::MotorGroup leftGroup({-20, -19, -18});
 
 std::shared_ptr<okapi::OdomChassisController> drive = 
     okapi::ChassisControllerBuilder()
-    .withMotors(-1, -2, -4, -3) // left motor is 1, right motor is 2 (reversed)
+    .withMotors(leftGroup, rightGroup) // left motor is 1, right motor is 2 (reversed)
     .withGains(
-        {0.00165, 0, 0.00011}, // distance controller gains
-        {0.00089, 0, 0.00005}, // turn controller gains
-        {0.00037, 0, 0.00009}  // angle controller gains (helps drive straight)
+        {0.00180, 0, 0.000126}, // distance controller gains
+        {0.00090, 0, 0.00005}, // turn controller gains
+        {0.00033, 0, 0.00005}  // angle controller gains (helps drive straight)
     )
     // .withSensors(
     //     okapi::ADIEncoder{'A', 'B'}, // left encoder in ADI ports A & B
@@ -100,6 +102,7 @@ void progSkills(Subsystems subsystems){
     float ratio = 1.75;
     float angleRatio = 3.25;
     // every 1.75ft is 1 ft IRL for the ratio
+	// subsystems.claw.actuate();
     drive->okapi::OdomChassisController::setState({0_ft, 0_ft, 0_deg});
 	drive->driveToPoint({2.5_ft*ratio, 0_ft});
 	subsystems.claw.actuate();

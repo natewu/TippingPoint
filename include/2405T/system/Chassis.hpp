@@ -85,6 +85,7 @@ pros::Motor operator+(pros::Motor master, pros::Motor slave);
 
 // Infinitely scalable chassis
 class VectorChassis{
+    // Macro to iterate through all motors
     #define ITERATELEFT(command) for(int i = 0; i < leftVector.size(); i++) {leftVector.at(i).command;}
     #define ITERATERIGHT(command) for(int i = 0; i < rightVector.size(); i++) {rightVector.at(i).command;}
     

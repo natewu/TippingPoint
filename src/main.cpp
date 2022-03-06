@@ -32,13 +32,26 @@ void competition_initialize() {}
 
 void autonomous() { 
 	// Task odometer(controller);
-	Subsystems subsystems(Lift(liftL, liftR), Intake(intakeL, intakeR), Claw(claw));
+	Subsystems subsystems(Lift(liftL, liftR), Claw(claw), Claw(rearClaw));
 
 	//driver
-	drive->okapi::OdomChassisController::setState({0_ft, 0_ft, 0_deg});
-	drive->driveToPoint({10.5_ft, 0_ft});
 	subsystems.claw.actuate();
-	drive->driveToPoint({0_ft, 0_ft}, true);
+	drive->okapi::OdomChassisController::setState({0_ft, 0_ft, 0_deg});
+	drive->driveToPoint({12_ft, 0_ft});
+	subsystems.claw.actuate();
+	drive->driveToPoint({1_ft, 0_ft}, true);
+
+	/* drive->driveToPoint({11.2_ft, 0_ft});
+	subsystems.claw.actuate();
+	drive->driveToPoint({5_ft, 0_ft}, true);
+	subsystems.rearClaw->actuate();
+	drive->turnToAngle(3.33*135_deg);
+	drive->okapi::OdomChassisController::setState({0_ft, 0_ft, 0_deg});
+	drive->driveToPoint({-10.88_ft, 0_ft}, true);
+	subsystems.rearClaw->actuate();
+	drive->driveToPoint({0_ft, 0_ft});
+ */
+	
 	// progSkills(subsystems);
 };
 
@@ -69,7 +82,7 @@ void opcontrol() {
 				clawStateLatch = false;
 			}
 
-
+			//Controller screen
 			int totalSeconds = millis() / 1000.0;
 			int minutes = totalSeconds / 60;
 			int seconds = totalSeconds % 60;
